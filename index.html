@@ -16,7 +16,7 @@
             background: linear-gradient(135deg, #FFE5B4 0%, #FFFACD 50%, #E6F3FF 100%);
             min-height: 100vh;
             overflow-x: hidden;
-            overflow-y: auto; /* 縦スクロールを確実に有効化 */
+            overflow-y: auto;
         }
 
         .container {
@@ -25,7 +25,7 @@
             margin: 0 auto;
             padding: 10px;
             min-height: 100vh;
-            padding-bottom: 80px; /* 下部に余白を追加 */
+            padding-bottom: 80px;
         }
 
         .header {
@@ -149,7 +149,7 @@
             grid-template-columns: repeat(4, 1fr);
             gap: 8px;
             padding: 0;
-            margin-bottom: 20px; /* グリッド間の余白も追加 */
+            margin-bottom: 20px;
         }
 
         .theme-card {
@@ -555,33 +555,209 @@
             animation: progressGlow 2s infinite;
         }
 
-        .firework {
+        /* 🎮 === 超絶エフェクト追加エリア === 🎮 */
+        
+        /* コンボエフェクト */
+        .combo-display {
             position: fixed;
-            width: 10px;
-            height: 10px;
-            background: radial-gradient(circle, #FFD700, #FF6B6B);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10000;
+            font-size: 60px;
+            font-weight: bold;
+            color: #FFD700;
+            text-shadow: 3px 3px 0px #FF6B6B, -3px -3px 0px #4ECDC4;
+            animation: comboExplosion 2s ease-out forwards;
+            pointer-events: none;
+        }
+
+        /* 超大袈裟な正解エフェクト */
+        .mega-success {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle, rgba(255,215,0,0.3) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 9998;
+            animation: megaFlash 1s ease-out forwards;
+        }
+
+        /* スコアアップエフェクト */
+        .score-popup {
+            position: fixed;
+            z-index: 10001;
+            font-size: 40px;
+            font-weight: bold;
+            color: #FFD700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: scorePopup 2s ease-out forwards;
+            pointer-events: none;
+        }
+
+        /* パーティクルシステム */
+        .particle {
+            position: fixed;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
             pointer-events: none;
             z-index: 9999;
         }
 
-        .confetti {
+        /* レーザービーム */
+        .laser-beam {
             position: fixed;
-            width: 8px;
-            height: 8px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #FFD700, #FF6B6B, #4ECDC4, transparent);
+            border-radius: 2px;
+            pointer-events: none;
+            z-index: 9999;
+            animation: laserSweep 0.8s ease-out forwards;
+        }
+
+        /* 画面シェイク */
+        .screen-shake {
+            animation: screenShake 0.5s ease-in-out;
+        }
+
+        /* スターバースト */
+        .starburst {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            animation: starburstExplosion 1.5s ease-out forwards;
+        }
+
+        /* レインボーリング */
+        .rainbow-ring {
+            position: fixed;
+            border: 8px solid transparent;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            animation: rainbowRing 2s ease-out forwards;
+        }
+
+        /* 超豪華花火 */
+        .mega-firework {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
             pointer-events: none;
             z-index: 9999;
         }
 
-        .parade-emoji {
-            position: fixed;
-            font-size: 40px;
-            pointer-events: none;
-            z-index: 9999;
-            animation: parade 3s linear infinite;
+        /* 🎵 === アニメーション定義 === 🎵 */
+        
+        @keyframes comboExplosion {
+            0% { 
+                transform: translate(-50%, -50%) scale(0) rotate(-180deg);
+                opacity: 0;
+            }
+            50% { 
+                transform: translate(-50%, -50%) scale(1.5) rotate(0deg);
+                opacity: 1;
+            }
+            100% { 
+                transform: translate(-50%, -50%) scale(1) rotate(0deg);
+                opacity: 0;
+            }
         }
 
-        /* アニメーション */
+        @keyframes megaFlash {
+            0% { opacity: 0; }
+            20% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        @keyframes scorePopup {
+            0% { 
+                transform: translateY(0) scale(0);
+                opacity: 1;
+            }
+            50% { 
+                transform: translateY(-30px) scale(1.5);
+                opacity: 1;
+            }
+            100% { 
+                transform: translateY(-60px) scale(1);
+                opacity: 0;
+            }
+        }
+
+        @keyframes laserSweep {
+            0% { 
+                width: 0;
+                left: 50%;
+            }
+            100% { 
+                width: 100vw;
+                left: 0;
+            }
+        }
+
+        @keyframes screenShake {
+            0%, 100% { transform: translateX(0); }
+            10% { transform: translateX(-10px); }
+            20% { transform: translateX(10px); }
+            30% { transform: translateX(-8px); }
+            40% { transform: translateX(8px); }
+            50% { transform: translateX(-6px); }
+            60% { transform: translateX(6px); }
+            70% { transform: translateX(-4px); }
+            80% { transform: translateX(4px); }
+            90% { transform: translateX(-2px); }
+        }
+
+        @keyframes starburstExplosion {
+            0% { 
+                transform: scale(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% { 
+                transform: scale(3) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes rainbowRing {
+            0% { 
+                width: 0;
+                height: 0;
+                border-color: #FF6B6B;
+                opacity: 1;
+            }
+            25% { border-color: #FFD700; }
+            50% { border-color: #4ECDC4; }
+            75% { border-color: #FF6B6B; }
+            100% { 
+                width: 300px;
+                height: 300px;
+                border-color: transparent;
+                opacity: 0;
+            }
+        }
+
+        @keyframes megaFireworkExplosion {
+            0% { 
+                transform: scale(0);
+                opacity: 1;
+            }
+            50% { 
+                transform: scale(2);
+                opacity: 1;
+            }
+            100% { 
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* 既存のアニメーション */
         @keyframes shimmer {
             0% { transform: translateX(-100%) rotate(45deg); }
             100% { transform: translateX(100%) rotate(45deg); }
@@ -658,14 +834,40 @@
             100% { transform: translateX(calc(100vw + 100px)); }
         }
 
+        .firework {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: radial-gradient(circle, #FFD700, #FF6B6B);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .confetti {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .parade-emoji {
+            position: fixed;
+            font-size: 40px;
+            pointer-events: none;
+            z-index: 9999;
+            animation: parade 3s linear infinite;
+        }
+
         @media (max-width: 380px) {
             .container {
-                padding-bottom: 100px; /* スマホではさらに余白を追加 */
+                padding-bottom: 100px;
             }
             
             .theme-grid {
                 grid-template-columns: repeat(3, 1fr);
-                margin-bottom: 20px; /* グリッド間の余白も追加 */
+                margin-bottom: 20px;
             }
             
             .theme-card {
@@ -821,6 +1023,8 @@
     <script src="rekishi-data.js"></script>
     
     <script>
+        // 🎮 === 大ヒットエフェクトシステム === 🎮
+        
         // 初期化チェックとエラーハンドリング
         let isInitialized = false;
         let gameState = {
@@ -838,7 +1042,14 @@
             timelineScore: 0,
             currentOrderKey: '',
             selectedTimelineCard: null,
-            timelineSlots: []
+            timelineSlots: [],
+            
+            // 🎯 新機能：コンボシステム
+            comboCount: 0,
+            perfectRun: true,
+            maxCombo: 0,
+            startTime: 0,
+            lastCorrectTime: 0
         };
 
         // 各カテゴリの時代順序データ（日本の時代17個すべて対応）
@@ -1067,7 +1278,7 @@
             suuji: "🔢"
         };
 
-        // 音声再生
+        // 🎵 === 超ハイクオリティ音響システム === 🎵
         let audioContext = null;
 
         function initAudio() {
@@ -1080,6 +1291,35 @@
                 }
             } catch (e) {
                 console.log('Audio not supported');
+            }
+        }
+
+        // 🎼 多重音色システム
+        function playComplexSound(frequencies, duration, type = 'sine', volume = 0.3) {
+            try {
+                initAudio();
+                if (!audioContext) return;
+
+                frequencies.forEach((freq, index) => {
+                    setTimeout(() => {
+                        const oscillator = audioContext.createOscillator();
+                        const gainNode = audioContext.createGain();
+                        
+                        oscillator.connect(gainNode);
+                        gainNode.connect(audioContext.destination);
+                        
+                        oscillator.frequency.setValueAtTime(freq, audioContext.currentTime);
+                        oscillator.type = type;
+                        
+                        gainNode.gain.setValueAtTime(volume, audioContext.currentTime);
+                        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+                        
+                        oscillator.start(audioContext.currentTime);
+                        oscillator.stop(audioContext.currentTime + duration);
+                    }, index * 50);
+                });
+            } catch (e) {
+                console.log('Complex audio playback failed:', e);
             }
         }
 
@@ -1107,44 +1347,246 @@
             }
         }
 
-        function playSuccessSound() {
-            playSound(523.25, 0.2);
-            setTimeout(() => playSound(659.25, 0.2), 100);
-            setTimeout(() => playSound(783.99, 0.3), 200);
+        // 🎊 スーパー効果音群
+        function playUltraSuccessSound() {
+            // 多重ハーモニー成功音
+            const harmonies = [523.25, 659.25, 783.99, 1046.5, 1318.5];
+            playComplexSound(harmonies, 0.8, 'sine', 0.4);
+            
+            // エコー効果
+            setTimeout(() => {
+                playComplexSound(harmonies.map(f => f * 0.5), 0.5, 'triangle', 0.2);
+            }, 200);
         }
 
-        function playApplauseSound() {
-            for (let i = 0; i < 8; i++) {
+        function playMegaApplauseSound() {
+            // 観客の拍手を模した複雑なサウンド
+            for (let i = 0; i < 20; i++) {
                 setTimeout(() => {
-                    playSound(200 + Math.random() * 300, 0.1, 'square');
-                }, i * 50);
+                    const freq = 100 + Math.random() * 200;
+                    playSound(freq, 0.1, 'square');
+                }, i * 30);
             }
+            
+            // ファンファーレ追加
+            setTimeout(() => {
+                const fanfare = [440, 554.37, 659.25, 880];
+                fanfare.forEach((freq, idx) => {
+                    setTimeout(() => playSound(freq, 0.5, 'sawtooth'), idx * 150);
+                });
+            }, 500);
         }
 
         function playClickSound() {
-            playSound(440, 0.1, 'square');
+            // よりリッチなクリック音
+            playComplexSound([440, 880], 0.1, 'square', 0.2);
         }
 
         function playWrongSound() {
-            playSound(200, 0.3, 'sawtooth');
+            // ドラマチックな失敗音
+            const descending = [400, 350, 300, 250, 200];
+            playComplexSound(descending, 0.5, 'sawtooth', 0.3);
         }
 
-        function playCelebrationSound() {
-            for (let i = 0; i < 10; i++) {
+        function playComboSound(comboCount) {
+            // コンボ数に応じて音階が上がる
+            const baseFreq = 523.25;
+            const frequencies = [];
+            for (let i = 0; i < Math.min(comboCount, 8); i++) {
+                frequencies.push(baseFreq * (1 + i * 0.1));
+            }
+            playComplexSound(frequencies, 0.6, 'sine', 0.5);
+        }
+
+        function playVictoryFanfare() {
+            // 勝利ファンファーレ
+            const victory = [
+                523.25, 659.25, 783.99, 1046.5, 
+                1174.66, 1318.5, 1567.98, 2093
+            ];
+            victory.forEach((freq, idx) => {
                 setTimeout(() => {
-                    playSound(523.25 + i * 50, 0.3);
-                }, i * 100);
+                    playSound(freq, 0.4, 'sine');
+                    if (idx % 2 === 0) {
+                        setTimeout(() => playSound(freq * 0.5, 0.3, 'triangle'), 100);
+                    }
+                }, idx * 200);
+            });
+        }
+
+        function playPerfectGameSound() {
+            // パーフェクトゲーム専用超豪華サウンド
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const chord = [523.25, 659.25, 783.99, 1046.5];
+                    playComplexSound(chord, 1.0, 'sine', 0.6);
+                    
+                    setTimeout(() => {
+                        playComplexSound(chord.map(f => f * 1.5), 0.8, 'triangle', 0.4);
+                    }, 300);
+                }, i * 1000);
             }
         }
 
-        function playParadeSound() {
-            const melodyNotes = [523.25, 587.33, 659.25, 698.46, 783.99, 880, 987.77, 1046.5];
-            melodyNotes.forEach((note, index) => {
-                setTimeout(() => {
-                    playSound(note, 0.4);
-                }, index * 200);
-            });
+        // 🎆 === 超ド派手エフェクトシステム === 🎆
+
+        function createMegaSuccessEffect(x, y) {
+            // メガ成功フラッシュ
+            const megaFlash = document.createElement('div');
+            megaFlash.className = 'mega-success';
+            document.body.appendChild(megaFlash);
+            setTimeout(() => megaFlash.remove(), 1000);
+
+            // 画面シェイク
+            document.body.classList.add('screen-shake');
+            setTimeout(() => document.body.classList.remove('screen-shake'), 500);
+
+            // レーザービーム
+            const laser = document.createElement('div');
+            laser.className = 'laser-beam';
+            laser.style.top = y + 'px';
+            document.body.appendChild(laser);
+            setTimeout(() => laser.remove(), 800);
+
+            // スターバースト
+            createStarburst(x, y);
+
+            // レインボーリング
+            createRainbowRing(x, y);
+
+            // パーティクル爆発
+            createParticleExplosion(x, y, 30);
         }
+
+        function createStarburst(x, y) {
+            const starburst = document.createElement('div');
+            starburst.className = 'starburst';
+            starburst.style.left = x + 'px';
+            starburst.style.top = y + 'px';
+            starburst.style.width = '20px';
+            starburst.style.height = '20px';
+            starburst.style.background = 'conic-gradient(from 0deg, #FFD700, #FF6B6B, #4ECDC4, #FFD700)';
+            starburst.style.borderRadius = '50%';
+            document.body.appendChild(starburst);
+            setTimeout(() => starburst.remove(), 1500);
+        }
+
+        function createRainbowRing(x, y) {
+            const ring = document.createElement('div');
+            ring.className = 'rainbow-ring';
+            ring.style.left = (x - 150) + 'px';
+            ring.style.top = (y - 150) + 'px';
+            document.body.appendChild(ring);
+            setTimeout(() => ring.remove(), 2000);
+        }
+
+        function createParticleExplosion(x, y, count) {
+            const colors = ['#FFD700', '#FF6B6B', '#4ECDC4', '#45B7AA', '#FFE66D', '#FF9F43'];
+            
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                const angle = (Math.PI * 2 * i) / count;
+                const velocity = 100 + Math.random() * 100;
+                const endX = x + Math.cos(angle) * velocity;
+                const endY = y + Math.sin(angle) * velocity;
+                
+                particle.style.animation = `particleBlast 1s ease-out forwards`;
+                particle.style.setProperty('--end-x', endX + 'px');
+                particle.style.setProperty('--end-y', endY + 'px');
+                
+                document.body.appendChild(particle);
+                setTimeout(() => particle.remove(), 1000);
+            }
+        }
+
+        function createComboDisplay(comboCount) {
+            const comboDisplay = document.createElement('div');
+            comboDisplay.className = 'combo-display';
+            
+            let message = '';
+            if (comboCount >= 10) message = `🔥 LEGENDARY COMBO ${comboCount}! 🔥`;
+            else if (comboCount >= 7) message = `⚡ SUPER COMBO ${comboCount}! ⚡`;
+            else if (comboCount >= 5) message = `✨ GREAT COMBO ${comboCount}! ✨`;
+            else if (comboCount >= 3) message = `🎯 COMBO ${comboCount}! 🎯`;
+            
+            comboDisplay.textContent = message;
+            document.body.appendChild(comboDisplay);
+            setTimeout(() => comboDisplay.remove(), 2000);
+        }
+
+        function createScorePopup(x, y, points) {
+            const popup = document.createElement('div');
+            popup.className = 'score-popup';
+            popup.style.left = x + 'px';
+            popup.style.top = y + 'px';
+            popup.textContent = `+${points}`;
+            document.body.appendChild(popup);
+            setTimeout(() => popup.remove(), 2000);
+        }
+
+        function createMegaFirework(x, y) {
+            for (let i = 0; i < 15; i++) {
+                const firework = document.createElement('div');
+                firework.className = 'mega-firework';
+                firework.style.left = x + (Math.random() - 0.5) * 100 + 'px';
+                firework.style.top = y + (Math.random() - 0.5) * 100 + 'px';
+                firework.style.background = `hsl(${Math.random() * 360}, 100%, 60%)`;
+                firework.style.animation = `megaFireworkExplosion 2s ease-out ${i * 0.1}s`;
+                document.body.appendChild(firework);
+
+                setTimeout(() => firework.remove(), 2000 + i * 100);
+            }
+        }
+
+        // 🏆 === コンボシステム === 🏆
+        function handleCorrectMatch() {
+            gameState.comboCount++;
+            gameState.maxCombo = Math.max(gameState.maxCombo, gameState.comboCount);
+            gameState.lastCorrectTime = Date.now();
+
+            // コンボ効果音
+            playComboSound(gameState.comboCount);
+
+            // コンボ表示
+            if (gameState.comboCount >= 3) {
+                createComboDisplay(gameState.comboCount);
+            }
+
+            // コンボボーナス演出
+            if (gameState.comboCount >= 5) {
+                createMegaFirework(window.innerWidth / 2, window.innerHeight / 2);
+            }
+        }
+
+        function resetCombo() {
+            if (gameState.comboCount >= 3) {
+                // コンボが途切れた時の演出
+                playWrongSound();
+            }
+            gameState.comboCount = 0;
+            gameState.perfectRun = false;
+        }
+
+        // CSS追加：パーティクルアニメーション
+        const particleStyle = document.createElement('style');
+        particleStyle.textContent = `
+            @keyframes particleBlast {
+                0% {
+                    transform: translate(0, 0) scale(1);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translate(var(--end-x, 100px), var(--end-y, 100px)) scale(0);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(particleStyle);
 
         // クリック音付きイベントハンドラー
         function playClickSoundAndShowMenu() {
@@ -1177,35 +1619,40 @@
             restartGame();
         }
 
-        // エフェクト関数
+        // エフェクト関数（既存の改良版）
         function createFirework(x, y) {
-            for (let i = 0; i < 10; i++) {
+            // 既存の花火をより豪華に
+            for (let i = 0; i < 15; i++) {
                 const firework = document.createElement('div');
                 firework.className = 'firework';
                 firework.style.left = x + 'px';
                 firework.style.top = y + 'px';
-                firework.style.animation = `fireworkExplosion 1s ease-out ${i * 0.1}s`;
+                firework.style.animation = `fireworkExplosion 1.5s ease-out ${i * 0.05}s`;
                 firework.style.background = `hsl(${Math.random() * 360}, 100%, 60%)`;
+                firework.style.width = (8 + Math.random() * 6) + 'px';
+                firework.style.height = (8 + Math.random() * 6) + 'px';
                 document.body.appendChild(firework);
 
                 setTimeout(() => {
                     if (firework.parentNode) {
                         firework.parentNode.removeChild(firework);
                     }
-                }, 1000 + i * 100);
+                }, 1500 + i * 50);
             }
         }
 
         function createConfetti() {
             const colors = ['#FFD700', '#FF6B6B', '#4ECDC4', '#45B7AA', '#FFE66D', '#FF9F43'];
             
-            for (let i = 0; i < 50; i++) {
+            for (let i = 0; i < 100; i++) { // 数を増やして豪華に
                 const confetti = document.createElement('div');
                 confetti.className = 'confetti';
                 confetti.style.left = Math.random() * window.innerWidth + 'px';
                 confetti.style.top = '-10px';
                 confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
                 confetti.style.animation = `confettiFall ${2 + Math.random() * 3}s linear`;
+                confetti.style.width = (6 + Math.random() * 4) + 'px';
+                confetti.style.height = (6 + Math.random() * 4) + 'px';
                 document.body.appendChild(confetti);
 
                 setTimeout(() => {
@@ -1217,21 +1664,23 @@
         }
 
         function createParade() {
-            const paradeEmojis = ['🎊', '🎉', '🏆', '⭐', '🌟', '💫', '🎁', '🎈', '🎪', '🎭'];
+            const paradeEmojis = ['🎊', '🎉', '🏆', '⭐', '🌟', '💫', '🎁', '🎈', '🎪', '🎭', '👑', '🥇', '🎯', '💎'];
             
-            for (let i = 0; i < 15; i++) {
+            for (let i = 0; i < 25; i++) { // より多くの絵文字
                 const emoji = document.createElement('div');
                 emoji.className = 'parade-emoji';
                 emoji.textContent = paradeEmojis[Math.floor(Math.random() * paradeEmojis.length)];
                 emoji.style.top = Math.random() * window.innerHeight + 'px';
-                emoji.style.animationDelay = i * 0.2 + 's';
+                emoji.style.fontSize = (30 + Math.random() * 20) + 'px';
+                emoji.style.animationDelay = i * 0.15 + 's';
+                emoji.style.animationDuration = (2 + Math.random() * 2) + 's';
                 document.body.appendChild(emoji);
 
                 setTimeout(() => {
                     if (emoji.parentNode) {
                         emoji.parentNode.removeChild(emoji);
                     }
-                }, 3000 + i * 200);
+                }, 4000 + i * 150);
             }
         }
 
@@ -1473,6 +1922,7 @@
                     // ゲーム状態をリセット
                     gameState.selectedCard = null;
                     gameState.selectedTimelineCard = null;
+                    resetCombo();
                 }
                 
                 showScreen(previousScreen);
@@ -1627,6 +2077,10 @@
         function startMatchingGame() {
             try {
                 gameState.gameMode = 'matching';
+                gameState.comboCount = 0;
+                gameState.maxCombo = 0;
+                gameState.perfectRun = true;
+                gameState.startTime = Date.now();
                 
                 if (gameState.currentSubcategory) {
                     let category;
@@ -1667,6 +2121,10 @@
                 }
                 
                 gameState.gameMode = 'timeline';
+                gameState.comboCount = 0;
+                gameState.maxCombo = 0;
+                gameState.perfectRun = true;
+                gameState.startTime = Date.now();
                 
                 if (gameState.currentSubcategory) {
                     gameState.currentOrderKey = gameState.currentSubcategory;
@@ -1952,7 +2410,11 @@
                         slot.style.background = '#E8F5E8';
                         slot.style.borderColor = '#4ECDC4';
                         correct++;
-                        playSuccessSound();
+                        playUltraSuccessSound();
+                        
+                        // 正解エフェクト
+                        const rect = slot.getBoundingClientRect();
+                        createMegaSuccessEffect(rect.left + rect.width / 2, rect.top + rect.height / 2);
                     } else {
                         slot.style.background = '#FFE5E5';
                         slot.style.borderColor = '#FF6B6B';
@@ -1977,9 +2439,22 @@
                 const percentage = Math.round((gameState.timelineScore / gameState.timelineData.length) * 100);
                 
                 if (percentage === 100) {
-                    playCelebrationSound();
+                    playPerfectGameSound();
                     createConfetti();
                     createParade();
+                    
+                    // 完璧な場合の超豪華演出
+                    for (let i = 0; i < 20; i++) {
+                        setTimeout(() => {
+                            createMegaFirework(
+                                Math.random() * window.innerWidth,
+                                Math.random() * window.innerHeight
+                            );
+                        }, i * 200);
+                    }
+                } else if (percentage >= 80) {
+                    playVictoryFanfare();
+                    createConfetti();
                 }
                 
                 document.getElementById('finalScore').textContent = 
@@ -2065,7 +2540,7 @@
             }
         }
 
-        // マッチング判定
+        // マッチング判定（大幅改良版）
         function checkMatch(card1, card2) {
             try {
                 const text1 = card1.dataset.text;
@@ -2081,6 +2556,7 @@
                 }
                 
                 if (isMatch) {
+                    // 🎯 正解処理
                     card1.classList.remove('selected');
                     card1.classList.add('matched');
                     card2.classList.add('matched');
@@ -2088,11 +2564,25 @@
                     gameState.score++;
                     gameState.matchedPairs++;
                     
-                    playSuccessSound();
-                    playApplauseSound();
+                    // コンボ処理
+                    handleCorrectMatch();
+                    
+                    // 音響とエフェクト
+                    playUltraSuccessSound();
+                    playMegaApplauseSound();
                     
                     const rect1 = card1.getBoundingClientRect();
                     const rect2 = card2.getBoundingClientRect();
+                    
+                    // 超豪華エフェクト
+                    createMegaSuccessEffect(rect1.left + rect1.width / 2, rect1.top + rect1.height / 2);
+                    createMegaSuccessEffect(rect2.left + rect2.width / 2, rect2.top + rect2.height / 2);
+                    
+                    // スコアポップアップ
+                    const points = 100 + (gameState.comboCount * 10);
+                    createScorePopup(rect1.left + rect1.width / 2, rect1.top + rect1.height / 2, points);
+                    
+                    // 既存の花火も維持
                     createFirework(rect1.left + rect1.width / 2, rect1.top + rect1.height / 2);
                     createFirework(rect2.left + rect2.width / 2, rect2.top + rect2.height / 2);
                     
@@ -2104,10 +2594,17 @@
                         setTimeout(showResult, 1500);
                     }
                 } else {
+                    // 🚫 不正解処理
+                    resetCombo();
+                    
                     card1.classList.add('wrong');
                     card2.classList.add('wrong');
                     
                     playWrongSound();
+                    
+                    // 画面シェイク
+                    document.body.classList.add('screen-shake');
+                    setTimeout(() => document.body.classList.remove('screen-shake'), 500);
                     
                     setTimeout(() => {
                         card1.classList.remove('selected', 'wrong');
@@ -2121,27 +2618,80 @@
             }
         }
 
-        // 結果表示
+        // 結果表示（究極改良版）
         function showResult() {
             try {
                 if (gameState.gameMode === 'matching') {
-                    playCelebrationSound();
-                    playParadeSound();
-                    createConfetti();
-                    createParade();
-                    
-                    for (let i = 0; i < 10; i++) {
-                        setTimeout(() => {
-                            createFirework(
-                                Math.random() * window.innerWidth,
-                                Math.random() * window.innerHeight
-                            );
-                        }, i * 300);
-                    }
-                    
+                    const endTime = Date.now();
+                    const playTime = Math.round((endTime - gameState.startTime) / 1000);
                     const percentage = Math.round((gameState.score / gameState.totalPairs) * 100);
-                    document.getElementById('finalScore').textContent = 
-                        `${gameState.score}/${gameState.totalPairs}問正解！ (${percentage}%)`;
+                    
+                    if (percentage === 100 && gameState.perfectRun) {
+                        // 🏆 パーフェクトゲーム
+                        playPerfectGameSound();
+                        
+                        // 超豪華演出
+                        for (let i = 0; i < 30; i++) {
+                            setTimeout(() => {
+                                createMegaFirework(
+                                    Math.random() * window.innerWidth,
+                                    Math.random() * window.innerHeight
+                                );
+                            }, i * 100);
+                        }
+                        
+                        createConfetti();
+                        createParade();
+                        
+                        // 画面全体エフェクト
+                        for (let i = 0; i < 10; i++) {
+                            setTimeout(() => {
+                                createMegaSuccessEffect(window.innerWidth / 2, window.innerHeight / 2);
+                            }, i * 300);
+                        }
+                        
+                        document.getElementById('finalScore').textContent = 
+                            `🏆 PERFECT GAME! 🏆\n${gameState.score}/${gameState.totalPairs}問正解！\n⚡ 最大コンボ: ${gameState.maxCombo}\n⏱️ タイム: ${playTime}秒`;
+                    } else if (percentage >= 90) {
+                        // 🌟 素晴らしい成績
+                        playVictoryFanfare();
+                        createConfetti();
+                        createParade();
+                        
+                        for (let i = 0; i < 15; i++) {
+                            setTimeout(() => {
+                                createFirework(
+                                    Math.random() * window.innerWidth,
+                                    Math.random() * window.innerHeight
+                                );
+                            }, i * 200);
+                        }
+                        
+                        document.getElementById('finalScore').textContent = 
+                            `🌟 EXCELLENT! 🌟\n${gameState.score}/${gameState.totalPairs}問正解！ (${percentage}%)\n⚡ 最大コンボ: ${gameState.maxCombo}\n⏱️ タイム: ${playTime}秒`;
+                    } else if (percentage >= 70) {
+                        // 👍 良い成績
+                        playUltraSuccessSound();
+                        createConfetti();
+                        
+                        for (let i = 0; i < 8; i++) {
+                            setTimeout(() => {
+                                createFirework(
+                                    Math.random() * window.innerWidth,
+                                    Math.random() * window.innerHeight
+                                );
+                            }, i * 300);
+                        }
+                        
+                        document.getElementById('finalScore').textContent = 
+                            `👍 GREAT JOB! 👍\n${gameState.score}/${gameState.totalPairs}問正解！ (${percentage}%)\n⚡ 最大コンボ: ${gameState.maxCombo}\n⏱️ タイム: ${playTime}秒`;
+                    } else {
+                        // 📚 がんばろう
+                        playClickSound();
+                        
+                        document.getElementById('finalScore').textContent = 
+                            `📚 もう一度チャレンジ！ 📚\n${gameState.score}/${gameState.totalPairs}問正解！ (${percentage}%)\n⚡ 最大コンボ: ${gameState.maxCombo}\n⏱️ タイム: ${playTime}秒`;
+                    }
                 }
                 
                 showScreen('resultScreen');
